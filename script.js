@@ -352,3 +352,78 @@ function escHandler(e) {
     }
 }
 document.addEventListener('keydown', escHandler);
+
+// ===== 마음에 들어요 버튼 & 콘페티 효과 =====
+const likeBtn = document.getElementById('likeBtn');
+const confettiContainer = document.getElementById('confettiContainer');
+
+const confettiColors = [
+    '#ff6b6b', '#ffd93d', '#6bcf7f', '#4ecdc4', '#45b7d1',
+    '#ff9ff3', '#feca57', '#ff6b9d', '#c44569', '#f8b739',
+    '#ffffff', '#ffcc00', '#ff3366', '#00ff88'
+];
+
+const confettiShapes = ['circle', 'square', 'star'];
+
+function createConfetti() {
+    const confetti = document.createElement('div');
+    const shape = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+    const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    const size = Math.random() * 10 + 8;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 2 + 2;
+    const delay = Math.random() * 0.5;
+
+    confetti.className = `confetti ${shape}`;
+    confetti.style.backgroundColor = color;
+    confetti.style.width = `${size}px`;
+    confetti.style.height = `${size}px`;
+    confetti.style.left = `${left}%`;
+    confetti.style.animationDuration = `${duration}s`;
+    confetti.style.animationDelay = `${delay}s`;
+
+    confettiContainer.appendChild(confetti);
+
+    // 애니메이션 끝나면 제거
+    setTimeout(() => {
+        confetti.remove();
+    }, (duration + delay) * 1000 + 100);
+}
+
+function launchConfetti() {
+    // 여러 번에 걸쳐 콘페티 생성
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => createConfetti(), i * 30);
+    }
+
+    // 추가 웨이브
+    setTimeout(() => {
+        for (let i = 0; i < 30; i++) {
+            setTimeout(() => createConfetti(), i * 40);
+        }
+    }, 500);
+
+    setTimeout(() => {
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createConfetti(), i * 50);
+        }
+    }, 1000);
+}
+
+likeBtn.addEventListener('click', () => {
+    launchConfetti();
+
+    // 버튼 텍스트 잠시 변경
+    const likeText = likeBtn.querySelector('.like-text');
+    const likeIcon = likeBtn.querySelector('.like-icon');
+    const originalText = likeText.textContent;
+    const originalIcon = likeIcon.textContent;
+
+    likeText.textContent = '고마워요!';
+    likeIcon.textContent = '🥰';
+
+    setTimeout(() => {
+        likeText.textContent = originalText;
+        likeIcon.textContent = originalIcon;
+    }, 2000);
+});
