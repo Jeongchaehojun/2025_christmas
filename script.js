@@ -216,3 +216,139 @@ document.addEventListener('DOMContentLoaded', () => {
 // 데이트 코스 버튼 - 네이버 지도 링크 설정
 const dateCourseBtn = document.getElementById('dateCourseLinkBtn');
 dateCourseBtn.href = 'https://naver.me/GPln7Utc';
+
+// ===== 활동 카드 클릭 이벤트 =====
+const activities = {
+    gift: {
+        icon: '🎁',
+        title: '선물 증정식',
+        type: 'message',
+        message: '뭘까요? 🤔💕'
+    },
+    cafe: {
+        icon: '☕',
+        title: '크리스마스 카페',
+        type: 'message',
+        message: 'update soon... ☕✨'
+    },
+    illumination: {
+        icon: '🌟',
+        title: '일루미네이션',
+        type: 'message',
+        message: '걷자 좀 🚶‍♂️🚶‍♀️💫'
+    },
+    photo: {
+        icon: '📸',
+        title: '커플 사진',
+        type: 'message',
+        message: '나를 믿어 보세요 📸✨'
+    },
+    cake: {
+        icon: '🎂',
+        title: '크리스마스 케이크',
+        type: 'vote',
+        options: [
+            { icon: '👨‍🍳', text: '제작하기' },
+            { icon: '🍨', text: '배스킨라빈스' },
+            { icon: '🛒', text: '케이크 구매' }
+        ]
+    },
+    movie: {
+        icon: '🎬',
+        title: '크리스마스 영화',
+        type: 'message',
+        message: '팝콘 내놔 🍿\n넷플 내놔 📺'
+    }
+};
+
+// 활동 모달 DOM 요소
+const activityModal = document.getElementById('activityModal');
+const activityModalIcon = document.getElementById('activityModalIcon');
+const activityModalTitle = document.getElementById('activityModalTitle');
+const activityModalBody = document.getElementById('activityModalBody');
+const activityModalClose = document.getElementById('activityModalClose');
+const activityCards = document.querySelectorAll('.activity-card');
+
+// 활동 카드 클릭 이벤트
+activityCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const activityKey = card.dataset.activity;
+        const activity = activities[activityKey];
+
+        if (activity) {
+            openActivityModal(activity);
+        }
+    });
+});
+
+// 활동 모달 열기
+function openActivityModal(activity) {
+    activityModalIcon.textContent = activity.icon;
+    activityModalTitle.textContent = activity.title;
+
+    if (activity.type === 'message') {
+        activityModalBody.innerHTML = `
+            <div class="activity-message">${activity.message.replace(/\n/g, '<br>')}</div>
+        `;
+    } else if (activity.type === 'vote') {
+        activityModalBody.innerHTML = `
+            <div class="vote-container">
+                ${activity.options.map((opt, idx) => `
+                    <button class="vote-btn" data-vote="${idx}">
+                        <span class="vote-icon">${opt.icon}</span>
+                        <span>${opt.text}</span>
+                    </button>
+                `).join('')}
+            </div>
+        `;
+
+        // 투표 버튼 이벤트
+        const voteButtons = activityModalBody.querySelectorAll('.vote-btn');
+        voteButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const voteIdx = parseInt(btn.dataset.vote);
+                const selectedOption = activity.options[voteIdx];
+
+                activityModalBody.innerHTML = `
+                    <div class="vote-result">
+                        🎉 선택 완료!
+                        <span class="selected-option">${selectedOption.icon} ${selectedOption.text}</span>
+                    </div>
+                `;
+            });
+        });
+    }
+
+    activityModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// 활동 모달 닫기
+function closeActivityModal() {
+    activityModal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// 활동 모달 닫기 버튼
+activityModalClose.addEventListener('click', closeActivityModal);
+
+// 활동 모달 배경 클릭 시 닫기
+activityModal.addEventListener('click', (e) => {
+    if (e.target === activityModal) {
+        closeActivityModal();
+    }
+});
+
+// ESC 키로 활동 모달도 닫기 (기존 이벤트 수정)
+document.removeEventListener('keydown', escHandler);
+function escHandler(e) {
+    if (e.key === 'Escape') {
+        if (modal.classList.contains('active')) {
+            closeModal();
+        }
+        if (activityModal.classList.contains('active')) {
+            closeActivityModal();
+        }
+    }
+}
+document.addEventListener('keydown', escHandler);

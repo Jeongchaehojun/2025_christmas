@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <meta name="description" content="2025년 크리스마스, 우리의 특별한 이야기">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- 눈 내리는 효과 -->
     <div class="snowflakes" aria-hidden="true">
@@ -30,6 +33,9 @@
     <!-- 헤더 -->
     <header class="header">
         <div class="header-content">
+            <div class="couple-photo-container">
+                <img src="chistmas2024.JPG" alt="우리의 크리스마스" class="couple-photo">
+            </div>
             <h1 class="title">💝 2025 크리스마스 💝</h1>
             <p class="subtitle">with 내정이</p>
             <div class="header-decoration">🎄 ⭐ 🎄</div>
@@ -38,7 +44,7 @@
 
     <!-- 메인 콘텐츠 -->
     <main class="main-content">
-        
+
         <!-- 12월 24일 섹션 -->
         <section class="day-section" id="day24">
             <div class="section-header">
@@ -58,42 +64,42 @@
 
             <!-- 데이트 활동 카드들 -->
             <div class="activity-grid">
-                <div class="activity-card gift">
+                <div class="activity-card gift" data-activity="gift">
                     <div class="card-icon">🎁</div>
                     <h3>선물 증정식</h3>
                     <p>서로를 위해 준비한 특별한 선물을 교환하는 시간</p>
                     <div class="card-decoration">✨</div>
                 </div>
 
-                <div class="activity-card cafe">
+                <div class="activity-card cafe" data-activity="cafe">
                     <div class="card-icon">☕</div>
                     <h3>크리스마스 카페</h3>
                     <p>따뜻한 음료와 함께 연말 분위기 만끽하기</p>
                     <div class="card-decoration">🍰</div>
                 </div>
 
-                <div class="activity-card illumination">
+                <div class="activity-card illumination" data-activity="illumination">
                     <div class="card-icon">🌟</div>
                     <h3>일루미네이션</h3>
                     <p>반짝이는 조명 아래 로맨틱한 산책</p>
                     <div class="card-decoration">✨</div>
                 </div>
 
-                <div class="activity-card photo">
+                <div class="activity-card photo" data-activity="photo">
                     <div class="card-icon">📸</div>
                     <h3>커플 사진</h3>
                     <p>크리스마스 포토스팟에서 추억 남기기</p>
                     <div class="card-decoration">💕</div>
                 </div>
 
-                <div class="activity-card cake">
+                <div class="activity-card cake" data-activity="cake">
                     <div class="card-icon">🎂</div>
                     <h3>크리스마스 케이크</h3>
                     <p>달콤한 케이크와 함께하는 특별한 시간</p>
                     <div class="card-decoration">🍓</div>
                 </div>
 
-                <div class="activity-card movie">
+                <div class="activity-card movie" data-activity="movie">
                     <div class="card-icon">🎬</div>
                     <h3>크리스마스 영화</h3>
                     <p>따뜻한 담요 아래 영화 감상</p>
@@ -173,6 +179,21 @@
         </div>
     </div>
 
+    <!-- 활동 모달 -->
+    <div class="modal-overlay" id="activityModal">
+        <div class="modal-content activity-modal-content">
+            <button class="modal-close" id="activityModalClose">×</button>
+            <div class="modal-header">
+                <span class="modal-icon" id="activityModalIcon"></span>
+                <h2 id="activityModalTitle"></h2>
+            </div>
+            <div class="modal-body" id="activityModalBody">
+                <!-- 동적으로 메시지가 들어감 -->
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
+
 </html>
