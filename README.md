@@ -1,4 +1,4 @@
-# 🎄 2025 크리스마스 with 내정이 💕
+# 🎄 2025 크리스마스 💕
 
 ## 🔗 바로가기
 ### 👉 [웹사이트 바로가기](https://jeongchaehojun.github.io/2025_christmas/) 👈
